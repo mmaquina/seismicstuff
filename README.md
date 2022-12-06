@@ -1,0 +1,2 @@
+# seismicstuff
+seismic related scripts
