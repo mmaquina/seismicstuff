@@ -6,6 +6,7 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
+        print("Prints ebcdic header from segy file.")
         print("Usage:  ./print_ebcdic filename.sgy")
         exit()
 
