@@ -27,9 +27,15 @@ if __name__ == "__main__":
         for path in os.walk('.'):
             print(path)
     else:
-        for path in os.listdir():
-            print(path)
-        
-    with open("326023_3.segy", "rb") as ebcdic:
-        ascii_txt = codecs.decode(ebcdic.read(80*40), "cp500")
-        print(ascii_txt[(line - 1)*80 + position - 1 : (line - 1)*80 + position -1 + length].strip(' '))
+        sgys = [sgy for sgy in os.listdir() if (sgy.lower()[-4:] == ".sgy") or (sgy.lower()[-5:] == '.segy')]
+        print (sgys)
+
+    names = {}
+    for sgy in sgys:
+        with open(sgy, "rb") as ebcdic:
+            ebcdic.seek((line - 1)*80 + position - 1)
+            sgyname = codecs.decode(ebcdic.read(length), "cp500")
+            names[sgy] = sgyname.strip(' ')
+
+    for sgy in sgys:
+        os.rename(sgy, names[sgy] + '.sgy')
